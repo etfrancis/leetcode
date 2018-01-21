@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+        vector<vector<int>> resized(r, vector<int>(c, 0));
+        if(nums.size() == 0 || nums[0].size() == 0) return nums;
+        int numsrows = nums.size();
+        int numscols = nums[0].size();
+        if(numsrows * numscols != r*c) return nums;
+        for(int i = 0; i < r*c; i++){
+            int sourcerow = i / nums[0].size();
+            int sourcecol = i % nums[0].size();
+            int val = nums[sourcerow][sourcecol];
+            int destinationrow = i / c;
+            int destinationcol = i % c;
+            resized[destinationrow][destinationcol] = val;
+        }
+        return resized;
+    }
+};

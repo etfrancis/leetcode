@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        vector<vector<char>> keyboard;
+        vector<string> solution;
+        keyboard = {{'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'}, {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'}, {'z', 'x', 'c', 'v', 'b', 'n', 'm'}};
+        for(int i = 0; i < words.size(); i++){
+            int found = 1;
+            if(std::find(keyboard[0].begin(), keyboard[0].end(), tolower(words[i][0])) != keyboard[0].end()){
+                    for(int j = 1; j < words[i].size(); j++){
+                        if (std::find(keyboard[0].begin(), keyboard[0].end(), tolower(words[i][j])) == keyboard[0].end()){ found = 0; break;}}}
+            else if (std::find(keyboard[1].begin(), keyboard[1].end(), tolower(words[i][0])) != keyboard[1].end()){
+                    for(int j = 1; j < words[i].size(); j++){
+                        if (std::find(keyboard[1].begin(), keyboard[1].end(), tolower(words[i][j])) == keyboard[1].end()){ found = 0; break;}}}
+            else if (std::find(keyboard[2].begin(), keyboard[2].end(), tolower(words[i][0])) != keyboard[2].end()){
+                    for(int j = 1; j < words[i].size(); j++){
+                        if (std::find(keyboard[2].begin(), keyboard[2].end(), tolower(words[i][j])) == keyboard[2].end()){ found = 0; break;}}}
+            if(found == 1) solution.push_back(words[i]);
+            }
+            return solution;
+        }
+};

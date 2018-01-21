@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string licenseKeyFormatting(string S, int K) {
+        int p = 1;
+        int length = S.size();
+        string formatted = "";
+        int formatted_added = 0;
+        while(p <= length){
+            int sindex = length - p;
+            while(S[sindex] == '-') {p++; sindex--;}
+            if(p > length) break;
+            if((formatted_added != 0) && (formatted_added % K == 0)) formatted = '-' + formatted;
+            char letter = S[sindex];
+            if(letter >= 97 && letter <= 122)
+                letter = letter - 97 + 65;
+            formatted = letter + formatted;
+            formatted_added++;
+            p++;   
+        }
+        return formatted;
+    }
+};

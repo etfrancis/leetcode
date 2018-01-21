@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int numberOfBoomerangs(vector<pair<int, int>>& points) {
+        int result = 0;
+        for(int i = 0; i < points.size(); i++){
+            std::unordered_map<double, int> map;
+            for(int j = 0; j < points.size(); j++){
+                double distance = hypot(points[i].first - points[j].first, points[i].second - points[j].second);
+            result += 2* map[distance]++;
+            }
+        }
+    return result;    
+    }
+};
