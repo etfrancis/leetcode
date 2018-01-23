@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& nums) {
+        vector<int>sorted = nums;
+        sort(sorted.begin(), sorted.end(), std::greater<>());
+        vector<string> solution(sorted.size());
+        if(nums.size() < 1) return solution;
+        for(int i = 0; i < sorted.size(); i++){
+            int currentscore = sorted[i];
+            int j = 0;
+            while(j < nums.size() && nums[j] != currentscore){
+                j++;
+            }
+            if(i == 0){solution[j] = "Gold Medal";}
+            else if(i == 1){solution[j] = "Silver Medal";}
+            else if(i == 2){solution[j] = "Bronze Medal";}
+            else{solution[j] = std::to_string(i+1);}
+        }
+    return solution;
+    }
+};

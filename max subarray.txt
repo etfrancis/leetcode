@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+
+        
+        if(nums.size() == 0)
+            return 0;
+        else if (nums.size() == 1)
+            return nums[0];
+        
+        int startindex = 0;
+        
+        int maxneg = nums[startindex];
+        while(startindex < nums.size() && nums[startindex] < 0){
+            int curneg = nums[startindex];
+            if(curneg > maxneg)
+                maxneg = curneg;
+            startindex++;}
+        
+        int endindex = startindex;
+        
+        if(startindex == nums.size())
+            return maxneg;
+        
+        int maxstart = startindex;
+        int maxend = startindex;
+        int maxsum = nums[startindex];
+        int sum = maxsum;
+        
+        while(endindex < nums.size() -1){
+            endindex++;
+            sum += nums[endindex];
+            if(sum > maxsum){
+                maxstart = startindex;
+                maxend = endindex;
+                maxsum = sum;
+                }
+            if(sum < 0 && endindex + 1 < nums.size()){
+                sum = 0;
+                startindex = endindex + 1;
+                while(nums[startindex] < 0) startindex++;
+                endindex = startindex - 1;
+                }   
+        }
+        return maxsum;
+    }
+};

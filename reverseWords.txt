@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        if(s.size() == 0) return s;
+        int spaceupper = 0;
+        int spacelower = -1;
+        while(spaceupper < s.size()){
+            while(s[spaceupper] != ' ' && spaceupper < s.size()) spaceupper++;
+            int lowerindex = spacelower+1;
+            int upperindex = spaceupper-1;
+            while(lowerindex < upperindex){
+                char temp = s[upperindex];
+                s[upperindex] = s[lowerindex];
+                s[lowerindex] = temp;
+                lowerindex++;
+                upperindex--;
+            }
+            spacelower = spaceupper;
+            spaceupper++;
+        }
+        return s;
+    }
+};

@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int titleToNumber(string s) {
+        int index = 0;
+        int result = 0;
+        while(index < s.size()-1){
+            int num = s[index] - 64;
+            num = num * pow(26, s.size()-1-index);
+            result = result + num;
+            index++;
+        }
+        result = result + s[s.size()-1] - 64;
+        return result;
+    }
+};

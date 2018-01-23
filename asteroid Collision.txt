@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        std::stack<vector<int>> pos;
+        int index = 0;
+        vector<int> solution;
+        while(index < asteroids.size()){
+            if(asteroids[index] > 0) pos.push({asteroids[index], index});
+            else if(asteroids[index] < 0 && !pos.empty()){
+                vector<int> nextpos = pos.top();
+                if(nextpos[0] > -1 * asteroids[index]) asteroids[index] = 0;
+                else if(nextpos[0] == -1 * asteroids[index]){
+                    asteroids[index] = 0;
+                    asteroids[nextpos[1]] = 0;
+                    pos.pop();
+                }
+                else if(nextpos[0] < -1 * asteroids[index]){
+                    asteroids[nextpos[1]] = 0;
+                    pos.pop();
+                    index--;
+                }
+            }
+            index++;
+        }
+        for(int i = 0; i < asteroids.size(); i++){
+            if(asteroids[i] != 0) solution.push_back(asteroids[i]);
+        }
+        return solution;
+    }
+};

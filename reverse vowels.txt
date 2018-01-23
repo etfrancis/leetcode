@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        int lower = 0;
+        int upper = s.size()-1;
+        while(lower<upper){
+            while(tolower(s[lower]) != 'a' && tolower(s[lower]) != 'e' && tolower(s[lower]) != 'i' && tolower(s[lower]) != 'o' && tolower(s[lower]) != 'u' && lower < upper){
+                lower++;
+            }
+            while(tolower(s[upper]) != 'a' && tolower(s[upper]) != 'e' && tolower(s[upper]) != 'i' && tolower(s[upper]) != 'o' && tolower(s[upper]) != 'u' && lower < upper){
+                upper--;
+            }
+            char temp = s[lower];
+            s[lower] = s[upper];
+            s[upper] = temp;
+            lower++;
+            upper--;
+        }
+        return s;
+    }
+};

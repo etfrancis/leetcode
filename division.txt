@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if(dividend == INT_MIN && divisor == -1)
+            return INT_MAX;
+        if(dividend == 0)
+            return 0;
+        if(divisor == 1)
+            return dividend;
+        if(divisor == 0)
+            return INT_MAX;
+        
+        int dividend_neg = 0;
+        int divisor_neg = 0;
+        if (dividend < 0)
+            dividend_neg = 1;
+        if (divisor < 0)
+            divisor_neg = 1;
+        
+        
+        
+        if(dividend_neg && divisor_neg)
+            return(divide(-dividend, -divisor));
+        if (dividend_neg && !divisor_neg)
+           return -divide(-dividend, divisor);
+        if (!dividend_neg && divisor_neg)
+            return -divide(dividend, -divisor);
+        
+        if (dividend < divisor)
+            return 0;
+        
+        int count = 0;
+         while(dividend >= 0){
+             int round_count = 1;
+             int chunk = divisor;
+             while(chunk + chunk <= dividend){
+                 chunk = chunk + chunk;
+                 round_count = round_count + round_count;
+             }
+             dividend = dividend - chunk;
+             count = count + round_count;
+            }
+        return count - 1;
+        }
+};

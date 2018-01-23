@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int index1 = num1.size() - 1;
+        int index2 = num2.size() - 1;
+        int carry = 0;
+        string solution = "";
+        while(index1 >= 0 && index2 >= 0){
+            int n1 = num1[index1] - 48;
+            int n2 = num2[index2] - 48;
+            int sum = n1+n2+carry;
+            if(sum > 9){
+                sum = sum-10;
+                carry = 1;}
+            else carry = 0;
+            char c = sum+48;
+            solution = c + solution;
+            index1--;
+            index2--;
+        }
+        while(index1 >= 0){
+            int n1 = num1[index1] - 48;
+            int sum = n1+carry;
+            if(sum > 9){
+                sum = sum-10;
+                carry = 1;}
+            else carry = 0;
+            char c = sum+48;
+            solution = c + solution;
+            index1--;
+        }
+        while(index2 >= 0){
+            int n2 = num2[index2] - 48;
+            int sum = n2+carry;
+            if(sum > 9){
+                sum = sum-10;
+                carry = 1;}
+            else carry = 0;
+            char c = sum+48;
+            solution = c + solution;
+            index2--;
+        }
+        if(carry == 1)
+            solution = "1" + solution;
+        return solution;
+    }
+};

@@ -1,0 +1,49 @@
+class MinStack {
+        
+private:
+    vector<int> stack;
+    vector<int> minstack;
+    
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+    }
+    
+    void push(int x) {
+        this->stack.push_back(x);
+        if(this->minstack.size() == 0)
+            this->minstack.push_back(x);
+        else if(this->minstack[this->minstack.size()-1] > x)
+           this->minstack.push_back(x);
+        else
+            this->minstack.push_back(this->minstack[this->minstack.size()-1]);
+        return;
+    }
+    
+    void pop() {
+        if(this->stack.size() == 0) return;
+        this->stack.erase(this->stack.begin() + this->stack.size()-1);
+        this->minstack.erase(this->minstack.begin() + this->minstack.size()-1);
+        return;
+    }
+    
+    int top() {
+        if(this->stack.size() == 0) return -1;
+        return this->stack[this->stack.size()-1];
+    }
+    
+    int getMin() {
+        if(this->minstack.size() == 0) return -1;
+        return this->minstack[this->minstack.size()-1];
+    }
+
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */

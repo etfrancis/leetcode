@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> triples;
+        if(nums.size() < 3)
+            return triples;
+        
+        sort(nums.begin(), nums.end());
+        if(((nums[0] == 0) && (nums[1] == 0) && (nums[2] == 0)) || ((nums[nums.size() - 1] == 0) && (nums[nums.size() - 2] == 0) && (nums[nums.size() - 3] == 0))) {
+                triples.push_back({0,0,0});
+            return triples;}
+        else if((nums[0] > 0) || (nums[nums.size() - 1] < 0))
+            return triples;
+        int zeroposition = 0;
+        
+        while(nums[zeroposition] < 0) zeroposition++;
+        
+        for(int i = 0; i < zeroposition; i++){
+            int numi = nums[i];
+            for(int j = nums.size() - 1; j >= zeroposition; j--){
+                int numj = nums[j];
+                if((numj + numi) > 0){
+                    for(int k = i + 1; k < zeroposition; k++){
+                    int numk = nums[k];
+                    if(numi + numj + numk == 0){
+                        vector<int> triple = {numi, numj, numk};
+                        triples.push_back(triple);
+                        break;}
+                    }
+                }
+                else{
+                    for(int k = j - 1; k >= zeroposition; k--){
+                    int numk = nums[k];
+                    if(numi + numj + numk == 0){
+                        vector<int> triple = {numi, numj, numk};
+                        triples.push_back(triple);
+                        break;}
+                    }
+                }
+                while((j > zeroposition) && (nums[j] == nums[j-1])) j--;
+            }
+        while((i < zeroposition-1) && (nums[i] == nums[i+1])) i++;
+        }
+        if((nums[zeroposition] == 0) && (nums[zeroposition+1] == 0) && (nums[zeroposition+2] == 0))
+            triples.push_back({0,0,0});
+        return triples;
+    }
+};
