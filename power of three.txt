@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        if(n == 0) return false;
+        double logarithm = (double)log(n)/(double)log(3);
+        int logfactor = logarithm+.5;
+        double diff = abs(logarithm-logfactor);
+        if(diff < 0.000000000001) return true;
+        return false;
+    }
+};

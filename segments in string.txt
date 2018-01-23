@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int countSegments(string s) {
+        int segments = 0;
+        int index = 0;
+        while(index < s.size()){
+            while(index < s.size() && s[index] == ' ') index++;
+            if(index < s.size() && s[index] != ' ') segments++;
+            while(index < s.size() && s[index] != ' ') index++;
+        }
+        return segments;
+    }
+};

@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int diffbits = x ^ y;
+        int numones = diffbits & 1 ? 1 : 0;
+        while(diffbits = diffbits >> 1){
+            if(diffbits & 1) numones++;
+        }
+        return numones;
+    }
+};

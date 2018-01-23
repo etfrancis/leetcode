@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        int topindex = k-1;
+        int bottomindex = 0;
+        if(s.size() < 2) return s;
+        if(topindex > s.size() - 1) topindex = s.size() -1;
+        while(topindex < s.size()){
+            int windowtop = topindex;
+            int windowbottom = bottomindex;
+            while(windowtop > windowbottom){
+                char temp = s[windowtop];
+                s[windowtop] = s[windowbottom];
+                s[windowbottom] = temp;
+                windowtop--;
+                windowbottom++;
+            }
+            topindex += 2*k;
+            bottomindex += 2*k;
+        }
+        if(bottomindex < s.size()){
+            int windowbottom = bottomindex;
+            int windowtop = bottomindex + k - 1;
+            if(windowtop > s.size()) windowtop = s.size() - 1;
+            while(windowtop > windowbottom){
+                char temp = s[windowtop];
+                s[windowtop] = s[windowbottom];
+                s[windowbottom] = temp;
+                windowtop--;
+                windowbottom++;
+            }
+        }
+        return s;
+    }
+};

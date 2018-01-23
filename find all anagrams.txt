@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> solution;
+        if(s.size() < p.size() || s.size() == 0) return solution;
+        
+        vector<int> ptable(26, 0);
+        vector<int> stable(26, 0);
+        
+        for(int i = 0; i < p.size(); i++){
+            ptable[p[i]-'a']++;
+            stable[s[i]-'a']++;
+        }
+        if(ptable == stable) solution.push_back(0);
+        
+        for(int i = p.size(); i < s.size(); i++){
+            stable[s[i]-'a']++;
+            stable[s[i-p.size()]-'a']--;
+            if(ptable == stable) solution.push_back(i-p.size()+1);
+        }
+        
+        return solution;
+    }
+};

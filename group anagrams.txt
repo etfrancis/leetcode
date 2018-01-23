@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> string_sets;
+        
+        vector<string> stringmap[20000];
+        
+        for(int i = 0; i < strs.size(); i++){
+            int index = 0;
+            for(int j = 0; j < strs[i].size(); j++){
+                string sorted_strs = strs[i];
+                sort(sorted_strs.begin(), sorted_strs.end());
+                index += (sorted_strs[j] - 97) * (j+1);
+            }
+            
+            int placed = 0;
+            while(placed == 0){
+            index = index % 20000;
+            if(stringmap[index].size() == 0){
+                stringmap[index].push_back(strs[i]);
+                placed = 1;}
+                
+            else{
+                string sorted_strs = strs[i];
+                sort(sorted_strs.begin(), sorted_strs.end());
+                string sorted_stringmap = stringmap[index][0];
+                sort(sorted_stringmap.begin(), sorted_stringmap.end());
+                if(sorted_stringmap == sorted_strs){
+                    stringmap[index].push_back(strs[i]);
+                    placed = 1;
+                }
+                else
+                    index++;
+                }
+            }
+        }
+        for(int i = 0; i < 20000; i++){
+            if(stringmap[i].size() > 0)
+                string_sets.push_back(stringmap[i]);
+            }
+            
+        return string_sets;
+    }
+};

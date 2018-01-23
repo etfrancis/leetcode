@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        if(nums.size() < 2) return 0;
+        int ones[32] ={0};
+        int zeroes[32] = {0};
+        int current[32] = {0};
+        int sum = 0;
+        int index = 31;
+        while(nums[0] > 0){
+            if(nums[0] & 1 == 1) current[index] = 1;
+            nums[0] = nums[0] >> 1;
+            index--;
+        }
+        for(int i = 0; i < 32; i++){
+            if(current[i] == 1) ones[i]++;
+            else if(current[i] == 0) zeroes[i]++;
+        }
+        
+        for(int i = 1; i < nums.size(); i++){
+            int current[32] = {0};
+            int index = 31;
+            while(nums[i] > 0){
+                if(nums[i] & 1 == 1) current[index] = 1;
+                nums[i] = nums[i] >> 1;
+                index--;
+            }
+            for(int j = 0; j < 32; j++){
+                if(current[j] == 1){
+                    ones[j]++;
+                    sum += zeroes[j];}                
+                else if(current[j] == 0){
+                    zeroes[j]++;
+                    sum += ones[j];}
+                } 
+        }
+    return sum;
+        
+    }
+};

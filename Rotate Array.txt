@@ -1,0 +1,13 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        vector<int> answer;
+        int arraysize = nums.size();
+        if(k == 0 || arraysize == 1) return;
+        for(int i = 0; i < arraysize; i++){
+            int index = (i-k);
+            while(index < 0) index = arraysize + index;
+            answer.push_back(nums[index]);}
+        nums = answer;
+    }
+};

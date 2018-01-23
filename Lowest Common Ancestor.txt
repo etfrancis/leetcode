@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        TreeNode* finder = root;
+        int pval = p->val;
+        int qval = q->val;
+        int greater = pval;
+        int lesser = qval;
+        if(qval > pval){greater = qval; lesser = pval;}
+        while(!(finder->val >= lesser && finder->val <= greater)){
+            if(finder->val > greater)
+                finder = finder->left;
+            else
+                finder = finder->right;
+        }
+        return finder;
+    }
+};

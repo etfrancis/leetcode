@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        if(nums.size() == 0)
+            return false;
+        if(nums.size() == 1)
+            return true;
+        
+        int moves = nums[0];
+        int index = 0;
+        while((moves > 0) && (index < nums.size() - 1)){
+            index++;
+            moves--;
+            if(nums[index] > moves)
+                moves = nums[index];
+            if(index == nums.size() - 1)
+                return true;
+        }
+        return false;
+    }
+};
