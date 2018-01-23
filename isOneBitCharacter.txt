@@ -1,0 +1,9 @@
+class Solution {
+public:
+    bool isOneBitCharacter(vector<int>& bits) {
+        int index = 0;
+        int size = bits.size() - 1;
+        while(index < size) index += bits[index] + 1;
+        return index == size;
+    }
+};
