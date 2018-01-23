@@ -1,0 +1,9 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int index = 0;
+        while(index < letters.size() && letters[index] <= target) index++;
+        if(index == letters.size()) index = 0;
+        return letters[index];
+    }
+};
