@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        int pindex = 0;
+        int sindex = 0;
+        map<int, string> pmap;
+        map<string, int> smap;
+        while(pindex < pattern.size() && sindex < str.size()){
+            int letter = (int)pattern[pindex] - 97;
+            string word = "";
+            while((int)str[sindex] != ' ' && sindex < str.size()){
+                word = word+str[sindex];
+                sindex++;}
+            if(pmap[letter] == ""){
+                pmap[letter] = word;
+                if(smap.find(word) != smap.end()) return false;
+                smap[word] = letter;}
+            else if (pmap[letter] != word) return false;
+            else if (smap[word] != letter) return false;
+            pindex++;
+            sindex++;
+        }
+        if(pindex < pattern.size() || sindex < str.size()) return false;
+        return true;
+    }
+};

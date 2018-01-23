@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int findTilt(TreeNode* root) {
+        int tilt = 0;
+        getsumtilt(root, tilt);
+        return tilt;
+    }
+private:
+    
+    int getsumtilt(TreeNode* node, int&tilt){
+        if(node == NULL) return 0;
+        int leftsum = getsumtilt(node->left, tilt);
+        int rightsum = getsumtilt(node->right, tilt);
+        int localtilt = fabs(leftsum-rightsum);
+        tilt += localtilt;
+        return leftsum+rightsum+node->val;
+    }
+};

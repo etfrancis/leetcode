@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string reverseString(string s) {
+        int index = 0;
+        int length = s.size();
+        while(index<length/2){
+            char temp = s[index];
+            s[index] = s[length-1-index];
+            s[length-1-index] = temp;
+            index++;
+        }
+        return s;
+    }
+};

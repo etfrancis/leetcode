@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        vector<long> maxnums = {LONG_MIN, LONG_MIN, LONG_MIN};
+        int index = 0;
+        int maxcount = 0;
+        while(index < nums.size()){
+            if(nums[index] > maxnums[0]){
+                maxcount++;
+                maxnums = {nums[index], maxnums[0], maxnums[1]};}
+            else if(nums[index] > maxnums[1] && nums[index] != maxnums[0]){
+                maxcount++;
+                maxnums = {maxnums[0], nums[index], maxnums[1]};} 
+            else if(nums[index] >= maxnums[2] && nums[index] != maxnums[0] && nums[index] != maxnums[1]){
+                maxcount++;
+                maxnums[2] = nums[index];}
+            index++;
+        }
+        if(maxcount > 2)
+            return maxnums[2];
+        else return maxnums[0];
+        }
+};
