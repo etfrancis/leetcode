@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+        vector<int> solution;
+        for(int i = 0; i < findNums.size(); i++){
+            int found = 0;
+            int pushed = 0;
+            for(int j = 0; j < nums.size(); j++){
+                if(findNums[i] == nums[j])
+                    found = 1;
+                if(findNums[i] < nums[j] && found == 1){
+                    solution.push_back(nums[j]);
+                    pushed = 1;
+                    break;
+                }   
+            }
+            if(pushed != 1)
+                solution.push_back(-1);
+        }
+        return solution;
+    }
+};

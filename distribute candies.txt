@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        sort(candies.begin(), candies.end());
+        int handsize = candies.size() / 2;
+        int index = 0;
+        int count = 0;
+        while(index < candies.size() && count < handsize){
+            while(index < candies.size() -1 && candies[index] == candies[index+1]) index++;
+            count++;
+            index++;
+        }
+        return count;
+    }
+};

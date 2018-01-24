@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool validPalindrome(string s) {
+        return validate(s, 0, s.size()-1, 1);
+    } 
+    
+    bool validate(string& s, int indexl, int indexr, int lives){
+        if(indexl >= indexr) return true;
+        if(s[indexl] == s[indexr]) return validate(s, indexl+1, indexr-1, lives);
+        if(s[indexl] != s[indexr]){
+            if(lives == 0) return false;
+            return validate(s, indexl, indexr-1, lives-1) || validate(s, indexl+1, indexr, lives-1);
+        }
+    }
+};

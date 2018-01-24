@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        int a = 0;
+        vector<int> squares;
+        long squared = 0;
+        while(squared <= (long)c){
+            squared = pow(a, 2);
+            int root = sqrt(c-squared);
+            if(pow(root, 2) == c-squared) return true;
+            a++;
+        }
+
+        return false;
+    }
+    
+};

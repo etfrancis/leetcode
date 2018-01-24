@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        for(int r = 0; r < matrix.size(); r++){
+            int index = 0;
+            while(index < matrix[0].size() && r+index < matrix.size()){
+                if(matrix[r+index][index] != matrix[r][0]) return false;
+                index++;
+            }
+        }
+        for(int c = 0; c < matrix[0].size(); c++){
+            int index = 0;
+            while(index < matrix.size() && c+index < matrix[0].size()){
+                if(matrix[index][c+index] != matrix[0][c]) return false;
+            index++;
+            }
+        }
+    return true;
+    }
+};

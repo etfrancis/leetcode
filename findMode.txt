@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        vector<int> modes;
+        int max = 0;
+        int count = 0;
+        int prev = 0;
+        if(root){
+        set_prev(root, prev, count);
+        traverse_count(root, max, count, prev);
+        set_prev(root, prev, count);
+        traverse_add(root, max, count, prev, modes);
+        }
+        return modes;
+    }
+private:
+    void set_prev(TreeNode* node, int&prev, int&count){
+        while(node && node->left) node = node->left;
+        prev = node->val;
+        count = 0;
+        return;
+    }
+    
+    void traverse_count(TreeNode* node, int& max, int& count, int& prev){
+        if(node == 0) return;
+        traverse_count(node->left, max, count, prev);
+        if(node->val == prev)
+            count++;
+        else{
+            prev = node->val;
+            count = 1;
+        }
+        if(count > max) max = count;
+        traverse_count(node->right, max, count, prev);
+        return;
+    }
+    
+    void traverse_add(TreeNode* node, int&max, int& count, int&prev, vector<int>& modes){
+        if(node == 0) return;
+        traverse_add(node->left, max, count, prev, modes);
+        if(node->val == prev)
+            count++;
+        else{
+            prev = node->val;
+            count = 1;
+        }
+        if(count == max) modes.push_back(node->val);
+        traverse_add(node->right, max, count, prev, modes);
+        return;
+    }
+};

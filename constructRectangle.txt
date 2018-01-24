@@ -1,0 +1,8 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int dimension1 = ceil(sqrt(area));
+        while(area % dimension1 != 0){dimension1 += 1;}
+        return {dimension1, area / dimension1};
+    }
+};
