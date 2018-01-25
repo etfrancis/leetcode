@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        for(int i = 0; i < grid.size(); i++){
+            for(int j = 0; j < grid[0].size(); j++){
+                if(grid[i][j] == 1){
+                stack<vector<int>> tovisit;
+                tovisit.push({i, j});
+                dfs(grid, maxsize, tovisit, 0);}
+                }
+            }
+    return maxsize;
+    }
+
+private:
+    int maxsize = 0;
+    
+    void dfs(vector<vector<int>>& grid, int& maximum, stack<vector<int>>& tovisit, int size){
+        if(tovisit.empty()) return;
+        vector<int> pair = tovisit.top();
+        int x = pair[0];
+        int y = pair[1];
+        tovisit.pop();
+        if(grid[x][y] == 1){
+            if(x+1 < grid.size() && grid[x+1][y] == 1) tovisit.push({x+1, y});
+            if(y+1 < grid[0].size() && grid[x][y+1] == 1) tovisit.push({x, y+1});
+            if(x-1 >= 0 && grid[x-1][y] == 1) tovisit.push({x-1, y});
+            if(y-1 >= 0 && grid[x][y-1] == 1) tovisit.push({x, y-1});
+        
+            size++;
+            if(size > maxsize) maximum = size;
+            grid[x][y] = 0;}
+        dfs(grid, maximum, tovisit, size);
+        return;
+    }
+};

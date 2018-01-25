@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool hasAlternatingBits(int n) {
+        int lastbit = n & 1;
+        int always = 1;
+        while(n >>= 1){
+            int currentbit = n & 1;
+            if(lastbit == currentbit) always = 0;
+            lastbit = currentbit;
+        }
+        return always;
+    }
+};
