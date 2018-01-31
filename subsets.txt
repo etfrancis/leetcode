@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> solution;
+        vector<int> base;
+        addelements(nums, base, solution);
+        return solution;
+    }
+    
+    void addelements(vector<int> source, vector<int> list, vector<vector<int>>& solution){
+        if(source.size() == 0){
+            solution.push_back(list);
+            return;
+        }
+        vector<int> emptycopy = list;
+        list.push_back(source[0]);
+        source.erase(source.begin());
+        addelements(source, list, solution);
+        addelements(source, emptycopy, solution);
+        return;
+    }
+};

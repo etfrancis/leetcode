@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int findNthDigit(int n) {
+        if (n < 10) return n;
+        int mag = 0;
+        int sum = 0;
+        while(sum + 9*(pow(10,mag)) * (mag+1) < n){
+            sum += 9*(pow(10,mag)) * (mag+1);
+            mag++;
+        }
+        n -= sum;
+        int step = (n-1) / (mag+1);
+        int digit = (n-1) % (mag+1);
+        int num = pow(10,mag)+step;
+        string numstring = to_string(num);
+        return numstring[digit] - 48;
+    }
+};
