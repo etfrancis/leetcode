@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector<int> solution;
+        for(int i = left; i <= right; i++){
+            int num = i;
+            int selfie = 1;
+            while(num){
+                int remainder = num % 10;
+                if(remainder == 0) {selfie = 0; break;}
+                if(i % remainder != 0) selfie = 0;
+                num /= 10;
+            }
+            if(selfie) solution.push_back(i);
+        }
+        return solution;
+    }
+};

@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int countBinarySubstrings(string s) {
+
+        
+        if(s.size() < 2) return 0;
+        
+        int current = s[0];
+        int ccount = 1;
+        int pcount = 0;
+        int index = 1;
+        int total = 0;
+        while(index < s.size()){
+            if(s[index] == current){
+                ccount++;
+            if(pcount > 0){
+                total++;
+                pcount--;}
+            }
+            if(s[index] != current){
+                current = s[index];
+                total++;
+                pcount = ccount - 1;
+                ccount = 1;
+            }
+            index++;
+        }
+        return total;
+    }
+};
