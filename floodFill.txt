@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        stack<vector<int>> dfsstack;
+        int startColor = image[sr][sc];
+        vector<vector<int>> visited(image.size(), vector<int>(image[0].size(), 0));
+        dfsstack.push({sr, sc});
+        while(!dfsstack.empty()){
+            vector<int> currentsquare = dfsstack.top();
+            dfsstack.pop();
+            if(currentsquare[0] > 0 && image[currentsquare[0] - 1][currentsquare[1]] == startColor && visited[currentsquare[0] - 1][currentsquare[1]] == 0) dfsstack.push({currentsquare[0] - 1, currentsquare[1]});
+            if(currentsquare[0] < image.size() -1 && image[currentsquare[0] + 1][currentsquare[1]] == startColor && visited[currentsquare[0] + 1][currentsquare[1]] == 0) dfsstack.push({currentsquare[0] + 1, currentsquare[1]});
+            if(currentsquare[1] > 0 && image[currentsquare[0]][currentsquare[1] - 1] == startColor && visited[currentsquare[0]][currentsquare[1] - 1] == 0) dfsstack.push({currentsquare[0], currentsquare[1] -1 });
+            if(currentsquare[1] < image[0].size() -1 && image[currentsquare[0]][currentsquare[1] + 1] == startColor && visited[currentsquare[0]][currentsquare[1] + 1] == 0) dfsstack.push({currentsquare[0], currentsquare[1] + 1 });
+            image[currentsquare[0]][currentsquare[1]] = newColor;
+            visited[currentsquare[0]][currentsquare[1]] = 1;
+        }
+        return image;
+    }
+};
