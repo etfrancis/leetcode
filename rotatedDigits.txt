@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int rotatedDigits(int N) {
+        int count = 0;
+        adddigit(1, N, 0, count);
+        adddigit(2, N, 1, count);
+        adddigit(5, N, 1, count);
+        adddigit(6, N, 1, count);
+        adddigit(8, N, 0, count);
+        adddigit(9, N, 1, count);
+        return count;
+        
+    }
+    
+    void adddigit(int current, int target, int nonselfie, int& count){
+        if(current > target) return;
+        if(nonselfie) count++;
+        current *= 10;
+        adddigit(current + 0, target, nonselfie, count);
+        adddigit(current + 1, target, nonselfie, count);
+        adddigit(current + 2, target, 1, count);
+        adddigit(current + 5, target, 1, count);
+        adddigit(current + 6, target, 1, count);
+        adddigit(current + 8, target, nonselfie, count);
+        adddigit(current + 9, target, 1, count);
+        return;
+    }
+};
