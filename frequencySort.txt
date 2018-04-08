@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char, int> freq;
+        for(char c : s)
+            freq[c]++;
+        
+        map<int, string> charstrings;
+        for(auto f : freq){
+            char c = f.first;
+            int n = f.second;
+            charstrings[n] += string(n, c);
+        }
+        
+        string solution = "";
+        for(auto reviter = charstrings.rbegin(); reviter != charstrings.rend(); reviter++)
+            solution += reviter->second;
+        return solution;
+    }
+};
