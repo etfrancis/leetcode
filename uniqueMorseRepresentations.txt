@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        unordered_map<string, int> table;
+        vector<string> code = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        for(int i = 0; i < words.size(); i++){
+            string morse;
+            for(int j = 0; j < words[i].size(); j++){
+                morse += code[words[i][j] - 97];
+            }
+            table[morse]++;
+        }
+        return table.size();
+    }
+};
