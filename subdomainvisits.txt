@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        vector<string> solution;
+        unordered_map<string, int> domainshash;
+        for(int i = 0; i < cpdomains.size(); i++){
+            string cpdomainpair = cpdomains[i];
+            string currentdomaincount;
+            int j = 0;
+            while(cpdomainpair[j] != ' ' && j < cpdomainpair.size()){
+                currentdomaincount += cpdomainpair[j];
+                j++;
+            }
+            vector<string> currentdomainname;
+            j++;
+            string domainpart;
+            while(j < cpdomainpair.size()){
+                if(cpdomainpair[j] != '.'){
+                    domainpart += cpdomainpair[j];
+                }
+                else{
+                    currentdomainname.push_back(domainpart);
+                    domainpart = "";
+                }
+                j++;
+            }
+            currentdomainname.push_back(domainpart);
+            for(int k = 0; k < currentdomainname.size(); k++){
+                string name = "";
+                for(int m = k; m < currentdomainname.size(); m++){
+                    name += ".";
+                    name += currentdomainname[m];
+                }
+                name = name.substr(1);
+                domainshash[name] += stoi(currentdomaincount);
+            }
+            }
+        for ( auto it = domainshash.begin(); it != domainshash.end(); ++it ){
+            string solutionpair = to_string(it->second);
+            solutionpair += " ";
+            solutionpair += it->first;
+            solution.push_back(solutionpair);
+            }
+        return solution;
+    }
+};
