@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string toGoatLatin(string S) {
+        int sindex = 0;
+        string D = "";
+        string word = "";
+        int wordCount = 1;
+
+        while(sindex < S.size()){
+            char currentLetter = S[sindex];
+            if(currentLetter == ' '){
+                if(tolower(word[0]) == 'a' || tolower(word[0]) == 'e' || tolower(word[0]) == 'i' || tolower(word[0]) == 'o' || tolower(word[0]) == 'u')
+                    word += "ma";
+                else{
+                    char temp = word[0];
+                    word.erase(0,1);
+                    word += temp;
+                    word += "ma";}
+                for(int i = 0; i < wordCount; i++)
+                    word += 'a';
+                D += word;
+                D += ' ';
+                word = "";
+                wordCount++;
+                }
+            else{
+                word += currentLetter;
+            }
+            sindex++;
+            }
+        if(word.size() != 0){
+            if(tolower(word[0]) == 'a' || tolower(word[0]) == 'e' || tolower(word[0]) == 'i' || tolower(word[0]) == 'o' || tolower(word[0]) == 'u')
+                    word += "ma";
+            else{
+                char temp = word[0];
+                word.erase(0,1);
+                word += temp;
+                word += "ma";}
+            for(int i = 0; i < wordCount; i++)
+                word += 'a';
+            D += word;
+            }
+        return D;
+    }
+};

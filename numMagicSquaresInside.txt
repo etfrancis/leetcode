@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+        
+        if(grid.size() < 3 || grid[0].size() < 3) return 0;
+        
+        int total = 0;
+        for(int x = 0; x < grid.size() - 2; x++){
+            for(int y = 0; y < grid[0].size() - 2; y++){
+                if(checkSquare(grid, x, y) == true && checkDistinctandRange(grid, x, y) == true) total++;
+            }
+        }
+        return total;
+    }
+    
+    bool checkDistinctandRange(vector<vector<int>>& grid, int x, int y){
+        vector<int> candidates(10, 0);
+        for(int i = 0; i < 9; i++){
+            int xplus = i % 3;
+            int yplus = i / 3;
+            if(grid[x+xplus][y+yplus] > 9 || grid[x+xplus][y+yplus] < 1) return false;
+            if(candidates[grid[x+xplus][y+yplus]] != 0) return false;
+            else candidates[grid[x+xplus][y+yplus]] = 1;
+        }
+        return true;
+    }
+    
+    bool checkSquare(vector<vector<int>>& grid, int x, int y){
+        int sum1 = sumRow(grid, x, y);
+        int sum2 = sumRow(grid, x, y+1);
+        int sum3 = sumRow(grid, x, y+2);
+        int sum4 = sumCol(grid, x, y);
+        int sum5 = sumCol(grid, x+1, y);
+        int sum6 = sumCol(grid, x+2, y);
+        int sum7 = sumDiag1(grid, x, y);
+        int sum8 = sumDiag2(grid, x, y);
+        if(sum1 == sum2 && sum2 == sum3 && sum3 == sum4 && sum4 == sum5 && sum5 == sum6 && sum6 == sum7 && sum7 == sum8) return true;
+        return false;
+    }
+    
+    int sumRow(vector<vector<int>>& grid, int x, int y){
+        return grid[x][y]+grid[x+1][y]+grid[x+2][y];
+    }
+        
+    int sumCol(vector<vector<int>>& grid, int x, int y){
+        return grid[x][y]+grid[x][y+1]+grid[x][y+2];
+    }
+        
+    int sumDiag1(vector<vector<int>>& grid, int x, int y){
+        return grid[x][y]+grid[x+1][y+1]+grid[x+2][y+2];
+    }
+    
+    int sumDiag2(vector<vector<int>>& grid, int x, int y){
+        return grid[x][y+2]+grid[x+1][y+1]+grid[x+2][y];
+    }
+};

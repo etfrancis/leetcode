@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+        int distance = 0;
+        vector<int> distances(S.size(), INT_MAX);
+        int start = 0;
+        while(start < S.size() && S[start] != C) start++;
+        for(int i = start; i < S.size(); i++){
+            if(S[i] == C)
+                distance = 0;
+            else distance++;
+            distances[i] = distance;
+        }
+        start = S.size() - 1;
+        while(start >= 0 && S[start] != C) start--;
+        distance = 0;
+        for(int i = start ; i >= 0; i--){
+            if(S[i] == C)
+                distance = 0;
+            else distance++;
+            if(distances[i] > distance) distances[i] = distance;
+        }
+    return distances;
+    }
+};
