@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool backspaceCompare(string S, string T) {
+        int read = 0;
+        int write = 0;
+        while(read < S.size()){
+            if(S[read] == '#'){
+                if(write > 0) write--;
+            }
+            else{S[write] = S[read];
+                 write++;}
+            read++;
+        }
+        int endS = write;
+        read = write = 0;
+        while(read < T.size()){
+            if(T[read] == '#'){
+                if(write > 0) write--;
+            }
+            else{T[write] = T[read];
+                 write++;}
+            read++;
+        }
+        int endT = write;
+        if(endS != endT) return false;
+        for(int i = 0; i < endS; i++)
+            if(S[i] != T[i]) return false;
+        return true;
+    }
+};

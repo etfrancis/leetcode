@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string pushDominoes(string dominoes) {
+        int index1 = 0;
+        int index2 = 0;
+        while(dominoes[index2] == '.') index2++;
+        if(index2 < dominoes.size() && dominoes[index2] == 'L')
+            for(int i = index1; i < index2; i++) dominoes[i] = 'L';
+        index1 = index2;
+        index2++;
+        while(index2 < dominoes.size()){
+            while(index2 < dominoes.size() && dominoes[index2] == '.') index2++;
+            if(index2 > dominoes.size()-1) break;
+            if(dominoes[index1] == 'L' && dominoes[index2] == 'L')
+                for(int i = index1; i < index2; i++) dominoes[i] = 'L';
+            if(dominoes[index1] == 'R' && dominoes[index2] == 'R')
+                for(int i = index1; i < index2; i++) dominoes[i] = 'R';
+            if(dominoes[index1] == 'R' && dominoes[index2] == 'L'){
+                if((index2 - index1) % 2  != 0){
+                    for(int i = index1 + 1; i <= index1 + (index2 - index1) / 2; i++) dominoes[i] = 'R';
+                    for(int i = index1 + (index2 - index1) / 2 + 1; i < index2; i++) dominoes[i] = 'L';
+                    }
+                else{
+                    for(int i = index1+1; i < index1 + (index2 - index1) / 2; i++) dominoes[i] = 'R';
+                    for(int i = index1 + (index2 - index1) / 2 + 1; i < index2; i++) dominoes[i] = 'L';
+                    }
+                }
+            index1 = index2;
+            index2++;
+            }
+        if(index1 < dominoes.size() -1 && dominoes[index1] == 'R')
+            for(int i = index1; i < dominoes.size(); i++) dominoes[i] = 'R';
+        return dominoes;
+    }
+};
