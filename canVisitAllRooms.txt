@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        vector<int> roomsVisited(rooms.size(), 0);
+        stack<int> stack;
+        stack.push(0);
+        while(!stack.empty()){
+            int current = stack.top();
+            stack.pop();
+            roomsVisited[current] = 1;
+            for(int i = 0; i < rooms[current].size(); i++)
+                if(roomsVisited[rooms[current][i]] != 1)
+                    stack.push(rooms[current][i]);
+        }
+        for(int i = 0; i < roomsVisited.size(); i++)
+            if(roomsVisited[i] != 1) return false;
+        return true;
+    }
+};

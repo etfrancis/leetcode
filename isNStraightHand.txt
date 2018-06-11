@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int W) {
+        map<int, int> handmap;
+        
+        if((hand.size() < W) || (hand.size() % W != 0)) return false;
+        
+        for(int i = 0; i < hand.size(); i++)
+            handmap[hand[i]]++;
+        
+        auto it=handmap.begin();
+        for(int i = 0; i < hand.size() / W; i++){
+            while(it->second <= 0) it++;
+            for(int j = 0; j < W; j++){
+                if(handmap[it->first+j] <= 0) return false;
+                handmap[it->first+j]--;
+            }
+        }
+        return true;
+    }
+};
