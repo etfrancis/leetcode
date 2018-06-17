@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int carFleet(int target, vector<int>& position, vector<int>& speed) {
+        if(position.size() < 2) return position.size();
+        vector<int> fleets;
+        for(int i = 0; i < position.size()-1; i++)
+            for(int j = i+1; j < position.size(); j++)
+                if(position[j]< position[i]){
+                    int temp = position[j];
+                    position[j] = position[i];
+                    position[i] = temp;
+                    temp = speed[j];
+                    speed[j] = speed[i];
+                    speed[i] = temp;
+                }
+        int fleetindex = 0;
+        fleets.push_back(1);
+        for(int index = position.size()-2; index >= 0; index--){
+            if(((double)target-(double)position[index+1])/((double)speed[index+1]) >= ((double)target-(double)position[index])/((double)speed[index]))
+            {
+                fleets[fleetindex]++;
+                position[index] = position[index+1];
+                speed[index] = speed[index+1];
+            }
+            else{
+                fleets.push_back(1);
+                fleetindex++;
+            }
+        }
+        return fleets.size();
+    }
+};
