@@ -1,24 +1,5 @@
 class Solution {
 public:
-    string shiftingLetters(string S, vector<int>& shifts) {
-        vector<int> shiftsByPosition;
-        int total = 0;
-        for(int i = shifts.size()-1; i >= 0; i--){
-            total += shifts[i];
-            total %= 26;
-            shiftsByPosition.push_back(total);}
-        for(int i = S.size() -1; i >= 0; i--){
-            int character = S[i];
-            character -= 97;
-            character += shiftsByPosition[S.size()-i-1];
-            character %= 26;
-            character += 97;
-            S[i] = (char)character;
-        }
-        return S;
-    }
-};class Solution {
-public:
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         vector<vector<int>> solutions;
         addPath(graph, 0, graph.size()-1, {}, solutions);
