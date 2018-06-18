@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> loudAndRich(vector<vector<int>>& richer, vector<int>& quiet) {
+        vector<int> answer(quiet.size(), 0);
+        for(int i = 0; i < answer.size(); i++)
+            answer[i] = i;
+        vector<vector<int>> relmatrix(quiet.size(), vector<int> {});
+        for(int i = 0; i < richer.size(); i++)
+            relmatrix[richer[i][0]].push_back(richer[i][1]);
+        for(int k = 0; k < relmatrix.size(); k++){
+            for(int i = 0; i < relmatrix.size(); i++)
+                for(int j = 0; j < relmatrix[i].size(); j++)
+                    if(quiet[answer[relmatrix[i][j]]] > quiet[answer[i]])
+                        answer[relmatrix[i][j]] = answer[i];}
+        return answer;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> loudAndRich(vector<vector<int>>& richer, vector<int>& quiet) {
+        vector<int> answer(quiet.size(), 0);
+        vector<vector<int>> relmatrix(quiet.size(), vector<int> {});
+        for(int i = 0; i < richer.size(); i++)
+            relmatrix[richer[i][1]].push_back(richer[i][0]);
+        for(int i = 0; i < quiet.size(); i++){
+            vector<int>candidates= {i};
+            stack<int> dfs;
+            dfs.push(i);
+            while(!dfs.empty()){
+                int current = dfs.top();
+                dfs.pop();
+                for(int j = 0; j < relmatrix[current].size(); j++){
+                        candidates.push_back(relmatrix[current][j]);
+                        dfs.push(relmatrix[current][j]);
+                    }
+            }
+            int min = i;
+            for(int k = 0; k < candidates.size(); k++){
+                if(quiet[candidates[k]] < quiet[min])
+                    min = candidates[k];
+            }
+            answer[i] = min;
+        }
+        return answer;
+    }
+};
