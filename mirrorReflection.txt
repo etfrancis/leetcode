@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int mirrorReflection(int p, int q) {
+        int x = 0;
+        int y = 0;
+        int xrate = p;
+        int yrate = q;
+        while(!(x == p && y == 0) && !(x == p && y == p) && !(x == 0 && y == p)){
+            x += xrate;
+            if(x >= p){
+                xrate *= -1;
+                x = p - (x - p);
+            }
+            else if(x <= 0){
+                xrate *= -1;
+                x = 0 + (0 - x);
+            }
+            y += yrate;
+            if(y >= p){
+                yrate *= -1;
+                y = p - (y - p);
+            }
+            else if(y <= 0){
+                yrate *= -1;
+                y = 0 + (0 - y);
+            }
+        }
+        if(x == p && y == 0) return 0;
+        else if(x == p && y == p) return 1;
+        else if(x == 0 && y == p) return 2;
+    }
+};
