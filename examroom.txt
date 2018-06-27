@@ -1,0 +1,60 @@
+class ExamRoom {
+    
+private:
+    map<int, int> filled;
+    int numseats;
+    
+public:
+    ExamRoom(int N) {
+        numseats = N;
+    }
+    
+    int seat() {
+        int filledseat;
+        if(filled.size() == 0){
+            filled[0] = 1;
+            filledseat = 0;
+            }
+        else{
+            int maxinterval = 0;
+            int maxindex = 0;
+            
+            if(((filled.begin())->first) > maxinterval){
+                maxinterval = (filled.begin())->first;
+                    maxindex = 0;
+            }
+            
+            auto it = filled.begin();
+            int prev = -1;
+            for(it; it != filled.end(); it++){
+                if(prev != -1 && (it->first - prev)/2 > maxinterval){
+                    maxinterval = (it->first - prev) /2 ;
+                    maxindex = prev + maxinterval;  
+                }
+                prev = it->first;
+                }
+            
+            if(numseats - 1  - (filled.rbegin())->first > maxinterval){
+                maxinterval = (numseats - (filled.rbegin())->first);
+                    maxindex = numseats - 1;}
+
+            
+            filled[maxindex] = 1;
+            filledseat = maxindex;
+        }
+        return filledseat;
+    }
+    
+    void leave(int p) {
+        filled.erase(p);
+        return;
+    }
+
+};
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(N);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
