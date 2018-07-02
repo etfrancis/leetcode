@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) {
+        int fives = 0;
+        int tens = 0;
+        int twenties = 0;
+        for(int i = 0; i < bills.size(); i++){
+            int currentbill = bills[i];
+            if(currentbill == 5) fives++;
+            else if(currentbill == 10) tens++;
+            else if(currentbill == 20) twenties++;
+            
+            int change = currentbill - 5;
+            if(change == 15){
+                if(tens != 0){tens--; change -= 10;}
+                while(fives!= 0 && change > 0){fives--; change -=5;}
+            }
+            else if(fives!= 0 && change == 5){fives--; change -=5;}
+        
+            if(change != 0) return false;
+        }
+        return true;
+    }
+};

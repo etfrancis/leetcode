@@ -1,0 +1,68 @@
+class Solution {
+public:
+    int matrixScore(vector<vector<int>>& A) {
+        for(int i = 0; i < A.size(); i++){
+            if(A[i][0] == 0) flip(A[i]);
+        }
+        for(int i = 0; i < A[0].size(); i++){
+            if(needsflipping(A, i)) flipcol (A, i);
+        }
+        
+        int option1 = getsum(A);
+        /*
+        for(int i = 0; i < A.size(); i++){
+            flip(A[i]);
+        }
+        for(int i = 0; i < A[0].size(); i++){
+            if(needsflipping(A, i)) flipcol (A, i);
+        }
+        
+        int option2 = getsum(A);
+        
+        if(option1 > option2) return option1;
+        */
+        
+        return option1;
+        }
+        
+        void flip(vector<int>& row){
+            for(int i = 0; i < row.size(); i++){
+                if(row[i] == 0) row[i] = 1;
+                else row[i] = 0;
+            }
+            return;
+        }
+        
+        void flipcol(vector<vector <int>>& col, int index){
+            for(int i = 0; i < col.size(); i++){
+                if(col[i][index] == 0) col[i][index] = 1;
+                else col[i][index] = 0;
+            }
+            return;
+        }
+        
+        bool needsflipping(vector<vector <int>>& col, int index){
+            int zeroes = 0;
+            int ones = 0;
+            for(int i = 0; i < col.size(); i++){
+                if(col[i][index] == 0) zeroes++;
+                else ones++;
+            }
+            return zeroes > ones;
+        }
+        
+        int getsum(vector<vector <int>>& matrix){
+            int sum = 0;
+            for(int i = 0; i < matrix.size(); i++){
+                int rowsum = 0;
+                int factor = 0;
+                for(int j = matrix[0].size() -1; j >= 0; j--){
+                    if(matrix[i][j] == 1)
+                        rowsum += pow(2, factor);
+                    factor++;
+                }
+                sum += rowsum;
+            }
+            return sum;
+        }
+};

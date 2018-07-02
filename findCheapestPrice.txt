@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+        int mincost = INT_MAX;
+        vector<vector<vector<int>>> nodes(n);
+        for(int i = 0; i < flights.size(); i++)
+            nodes[flights[i][0]].push_back({flights[i][1], flights[i][2]});
+        vector<vector<vector<int>>> costs(n);
+        stack<int> nstack;
+        costs[src].push_back({0, 0});
+        
+        for(int i = 0; i < nodes[src].size(); i++){
+            costs[nodes[src][i][0]].push_back({nodes[src][i][1], 0});
+            nstack.push(nodes[src][i][0]);
+            
+        }
+        while(!nstack.empty()){
+            int curnode = nstack.top();
+            nstack.pop();
+            for(int i = 0; i < nodes[curnode].size(); i++){
+                nstack.push(nodes[curnode][i][0]);
+                for(int j = 0 ; j < costs[curnode].size(); j++)
+                    costs[nodes[curnode][i][0]].push_back({costs[curnode][j][0] + nodes[curnode][i][1], costs[curnode][j][1] + 1});
+            }
+        }
+        int found = 0;
+        for(int i = 0; i < costs[dst].size(); i++){
+            if(costs[dst][i][0] < mincost && costs[dst][i][1] <= K){
+                found = 1;
+                mincost = costs[dst][i][0];
+                }
+            }
+        if(found == 0) return -1;
+        return mincost;
+    }
+};
