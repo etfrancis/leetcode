@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+        vector<int> solution;
+        getHeightAbove(root, target, K, solution);
+        if(K == 0) solution.push_back(target->val);
+        return solution;
+    }
+    
+    int getHeightAbove(TreeNode* node, TreeNode* target, int K, vector<int>&nodes){
+        if(node == 0) return -2;
+        else if(node->val == target->val){
+            getNodes(node, target, nodes, K);
+            return 0;}
+        else{
+            int leftside = getHeightAbove(node->left, target, K, nodes) + 1;
+            int rightside = getHeightAbove(node->right, target, K, nodes) + 1;
+            if(leftside == K || rightside == K){
+                nodes.push_back(node->val);
+                return K;}
+            if(leftside > 0){
+                getNodes(node->right, target, nodes, K-leftside-1);
+                return leftside;
+            }
+            if(rightside > 0){
+                getNodes(node->left, target, nodes, K-rightside-1);
+                return rightside;
+            }
+            return -2;
+        }
+    }
+    
+    void getNodes(TreeNode* node, TreeNode* target, vector<int>&nodes, int K){
+        if(node == 0) return;
+        else if(K == 0){
+            if(node->val != target->val)
+                nodes.push_back(node->val);
+        }
+        else{
+            if(node->left) getNodes(node->left, target, nodes, K-1);
+            if(node->right) getNodes(node->right, target, nodes, K-1);
+        }
+        return;
+    }
+};
