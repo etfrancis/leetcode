@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        vector<vector<TreeNode*>> nodes;
+        vector<TreeNode*> path;
+        getPaths(root, nodes, path);
+        int maxdepth = 0;
+        vector<int> candidates;
+        for(int i = 0; i < nodes.size(); i++)
+            if(nodes[i].size() > maxdepth) maxdepth = nodes[i].size();
+        for(int i = 0; i < nodes.size(); i++)
+            if(nodes[i].size() == maxdepth) candidates.push_back(i);
+
+        int depth = 0;
+        int same = 1;
+        
+        if(candidates.size() == 1) return nodes[candidates[0]][maxdepth - 1];
+        while(same == 1){
+            for(int i = 0; i < candidates.size() -1; i++)
+                if(nodes[candidates[i]][depth] != nodes[candidates[i+1]][depth]) same = 0;
+            if(same == 1) depth++;
+        }
+        return nodes[candidates[0]][depth-1];    
+    }
+    
+    void getPaths(TreeNode* node, vector<vector<TreeNode*>>& nodes, vector<TreeNode*> path){
+        path.push_back(node);
+        if(node->left != 0) getPaths(node->left, nodes, path);
+        if(node->right != 0) getPaths(node->right, nodes, path);
+        if(node->left == 0 && node->right == 0) nodes.push_back(path);
+        return;
+    }
+    
+};
