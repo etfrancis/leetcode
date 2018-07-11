@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* pruneTree(TreeNode* root) {
+        if(containsOne(root) == 0) return NULL;
+        if(root->left) root->left = pruneTree(root->left);
+        if(root->right) root->right = pruneTree(root->right);
+        return root;
+    }
+    
+    bool containsOne(TreeNode* node){
+        if(node->val == 1) return 1;
+        else if(node->left && containsOne(node->left)) return 1;
+        else if(node->right && containsOne(node->right)) return 1;
+        else return 0;
+    }
+};
