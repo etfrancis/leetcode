@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool validTicTacToe(vector<string>& board) {
+        int winsx = 0;
+        int winso = 0;
+        int xs = 0;
+        int os = 0;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(board[i][j] == 'X') xs++;
+                else if(board[i][j] == 'O') os++;
+            }
+        }
+        if(board[0] == "XXX") winsx++;
+        else if(board[0] == "OOO") winso++;
+        if(board[1] == "XXX") winsx++;
+        else if(board[1] == "OOO") winso++;
+        if(board[2] == "XXX") winsx++;
+        else if(board[2] == "OOO") winso++;
+        if(board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') winsx++;
+        else if(board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O') winso++;
+        if(board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') winsx++;
+        else if(board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O') winso++;
+        if(board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') winsx++;
+        else if(board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O') winso++;
+        if(board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') winsx++;
+        else if(board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') winso++;    
+        if(board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') winsx++;
+        else if(board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O') winso++;
+            
+        if(winsx > 0 && winso > 0) return false;
+        if(xs - os > 1 || xs - os < 0) return false;
+        if(winsx + winso == 0) return true;
+        if(winsx == 1 && xs-os == 1) return true;
+        if(winso == 1 && xs-os == 0) return true;
+        if(winsx == 2 && xs-os == 1) return true;
+        if(winso == 2 && xs-os == 0) return true;
+        return false;
+    }
+};
