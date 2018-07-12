@@ -1,0 +1,73 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int numComponents(ListNode* head, vector<int>& G) {
+        int length = 0;
+        ListNode* temp = head;
+        
+        while(temp != NULL){length++; temp = temp->next;}
+        
+        if(length == 1) return 1;
+        
+        vector<vector<int>> graph(length);
+        map<int, int> checklist;
+        vector<int> visited(length, 0);
+        for(int i = 0; i < G.size(); i++)
+            checklist[G[i]] = 1;
+        temp = head;
+        while(temp != NULL && temp->next != NULL){
+            if(checklist[temp->val] == 1){
+                graph[temp->val].push_back(temp->val);
+                if(checklist[temp->next->val] == 1){
+                graph[temp->val].push_back(temp->next->val);
+                graph[temp->next->val].push_back(temp->val);
+                }
+            }
+            temp = temp->next;
+        }
+        if(checklist[temp->val] == 1)
+            graph[temp->val].push_back(temp->val);
+        
+        int components = 0;
+        for(int i = 0; i < graph.size(); i++){
+            if(graph[i].size() > 0){
+                visited[i] = 1;
+                dfs(graph, i, visited);
+                components++;
+            }
+        }
+        return components;
+    }
+    
+    void dfs(vector<vector<int>>& graph, int i, vector<int>& visited){
+        stack<int> s;
+        for(int j = graph[i].size() -1; j >= 0; j--){
+            if(visited[graph[i][j]] == 0){
+                s.push(graph[i][j]);
+                visited[graph[i][j]] = 1;
+            }
+            }
+        graph[i] = {};
+        
+        while(!s.empty()){
+            int current = s.top();
+            s.pop();
+            
+            for(int j = graph[current].size()-1; j >= 0; j--){
+                if(visited[graph[current][j]] == 0){
+                    s.push(graph[current][j]);
+                    visited[graph[current][j]] = 1;
+                }
+                }
+            graph[current] = {};
+        }
+        return;
+    }
+};
