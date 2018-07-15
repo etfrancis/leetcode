@@ -1,0 +1,27 @@
+class Solution {
+public:
+    double largestSumOfAverages(vector<int>& A, int K) {
+        vector<vector<double>> graph(200, vector<double>(200, 0));
+        
+        double sum = 0;
+        for(int i = 0; i < A.size(); ++i){
+            sum += A[i];
+            graph[i+1][1] = sum / (i+1);
+        }
+        return check(graph, A, K, A.size());
+    }
+    
+    double check(vector<vector<double>>& graph, vector<int>& A, int k, int size){
+        if(graph[size][k] > 0) return graph[size][k];
+        if(k > size) return 0;
+        double sum = 0;
+        for(int i = size-1; i > 0; --i){
+            sum+= A[i];
+            graph[size][k] = max(graph[size][k], (check(graph, A, k-1, i) + (sum / (size-i))));
+            }
+        
+        return graph[size][k];
+    }
+};
+
+
