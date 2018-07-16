@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool reorderedPowerOf2(int N) {
+        vector<vector<int>> candidates;
+        for(int i = 0; i < 32; i++){
+            candidates.push_back({});
+            int n = pow(2, i);
+            while(n > 0){
+                int last = n%10;
+                candidates[i].push_back(last);
+                n /= 10;
+            }
+                sort(candidates[i].begin(), candidates[i].end());
+            }
+        vector<int> Nrep;
+        while(N > 0){
+            int last = N%10;
+            Nrep.push_back(last);
+            N /= 10;
+            }
+        sort(Nrep.begin(), Nrep.end());
+        for(int i = 0; i < 32; i++)
+            if(candidates[i] == Nrep) return true;
+        
+        return false;
+    
+    }
+};
