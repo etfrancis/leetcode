@@ -1,0 +1,63 @@
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        map<int, int> Bmap;
+        for(int i = 0; i < B.size(); i++)
+            Bmap[B[i]] = i;
+        sort(B.begin(), B.end());
+        sort(A.begin(), A.end());
+        int indexA = 0;
+        int indexB = 0;
+        vector<int> newA;
+        
+        while(indexA < A.size() && indexB < B.size()){   
+            while(indexA < A.size() && A[indexA] <= B[indexB]) indexA++;
+            if(indexA < A.size()){newA.push_back(A[indexA]); A[indexA] = -1;}
+            indexA++;
+            indexB++;
+        }
+        
+        for(int i = 0; i < A.size(); i++)
+            if(A[indexA] != -1) newA.push_back(A[indexA]);
+             
+
+        for(int i = 0; i < B.size(); i++)
+            A[Bmap[B[i]]] = newA[i];
+             
+        return A;
+        
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        map<int, int> Bmap;
+        for(int i = 0; i < B.size(); i++)
+            Bmap[B[i]] = i;
+        sort(B.begin(), B.end());
+        sort(A.begin(), A.end());
+             
+        vector<int> solution(B.size(), -1);
+        
+        for(int i = 0; i < B.size(); i++){
+            while(i < B.size() && B[i] >= A[i])
+                i++;
+            if(i < B.size()){
+                solution[Bmap[B[i]]] = A[i];
+                A[i] = -1;}
+        }
+        int index = 0;
+        for(int i = 0; i < solution.size(); i++){
+            if(solution[i] == -1){
+                while(index < A.size()-1 && A[index] == -1) index++;
+                solution[i] = A[index];
+                A[index] = -1;
+                }
+        }
+        
+        return solution;
+        
+    }
+};

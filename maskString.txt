@@ -1,0 +1,43 @@
+class Solution {
+public:
+    string maskPII(string S) {
+        if(S.size() == 0) return S;
+        if(S[0] <= 122 && S[0] >= 65) return maskEmail(S);
+        else return maskPhone(S);
+    }
+    
+    string maskEmail(string S){
+        vector<string> names;
+        string namePart = "";
+        for(int i = 0; i < S.size(); i++){
+            if(S[i] == '@'){names.push_back(namePart); namePart = "";}
+            else if(S[i] == '.'){names.push_back(namePart); namePart = "";}
+            else namePart += tolower(S[i]);
+        }
+        names.push_back(namePart);
+        string result = "";
+        result += names[0][0];
+        result += "*****";
+        result += names[0][names[0].size()-1];
+        result += '@';
+        result += names[1];
+        result += '.';
+        result += names[2];
+        return result;
+    }
+            
+    string maskPhone(string S){
+        string cleanS = "";
+        for(int i = 0; i < S.size(); i++)
+            if(S[i] >= 48 && S[i] <= 57) cleanS += S[i];
+        string finalS = "";
+        if(cleanS.size() > 10){
+            finalS += '+';
+            for(int i = 0; i < cleanS.size() -10; i++) finalS += '*';
+            finalS += '-';}
+        finalS += "***-***-";
+        for(int i = cleanS.size()-4; i < cleanS.size(); i++)
+            finalS += cleanS[i];
+        return finalS;
+    }
+};
