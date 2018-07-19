@@ -1,0 +1,118 @@
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        sort(A.begin(), A.end());
+        int end = A.size() -1;
+        for(int i = A.size()-1; i >= 0; i--){
+            int maxcovers = 0;
+            bool maxfound = false;
+            for(int j = 0; j < B.size(); j++){
+                if(B[j] >= 0 && B[j] < A[i] && B[j] >= B[maxcovers]){
+                    maxcovers = j;
+                    maxfound = true;}
+            }
+            if(maxfound == true){
+                B[maxcovers] = A[i] = -1 * A[i];
+                end--;}
+            else break;
+        }
+        int Bindex = 0;
+        for(int i = 0; i <= end; i++){
+            while(B[Bindex] < 0) Bindex++;
+            B[Bindex] = -1*A[i];
+        }
+        for(int i = 0; i < B.size(); i++) B[i] *= -1;
+        return B;
+    }
+};
+
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        sort(A.begin(), A.end());
+        
+        for(int i = A.size()-1; i >= 0; i--){
+            int maxcovers = -1;
+            bool maxfound = false;
+            for(int j = 0; j < B.size(); j++){
+                if((B[j] > 0) && (B[j] < A[i]) && ((maxcovers == -1 || B[j] > B[maxcovers]))){
+                    maxcovers = j;
+                    maxfound = true;}
+            }
+            if(maxfound == true){
+                B[maxcovers] = -1 * A[i];}
+            else break;
+        }
+        int Aindex = 0;
+        for(int i = 0; i < B.size(); i++){
+            if(B[i] >= 0){
+                B[i] = -1*A[Aindex];
+                Aindex++;
+                }
+            }
+        for(int i = 0; i < B.size(); i++) B[i] *= -1;
+        return B;
+    }
+};
+
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        sort(A.begin(), A.end());
+        
+        for(int i = A.size()-1; i >= 0; i--){
+            int maxcovers = -1;
+            if(A[i] == 0) break;
+            bool maxfound = false;
+            for(int j = 0; j < B.size(); j++){
+                if((B[j] >= 0) && (B[j] < A[i]) && ((maxcovers == -1 || B[j] > B[maxcovers]))){
+                    maxcovers = j;
+                    maxfound = true;}
+            }
+            if(maxfound == true){
+                B[maxcovers] = -1 * A[i];}
+            else break;
+        }
+        int Aindex = 0;
+        for(int i = 0; i < B.size(); i++){
+            if(B[i] > 0){
+                B[i] = A[Aindex];
+                Aindex++;
+                }
+            else B[i] *= -1;
+            }
+        
+        return B;
+    }
+};
+
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) {
+        sort(A.begin(), A.end());
+        
+        for(int i = A.size()-1; i >= 0; i--){
+            int maxcovers = -1;
+            if(A[i] == 0) break;
+            bool maxfound = false;
+            for(int j = 0; j < B.size(); j++){
+                if((B[j] >= 0) && (B[j] < A[i]) && ((maxcovers == -1 || B[j] > B[maxcovers]))){
+                    maxcovers = j;
+                    maxfound = true;}
+            }
+            if(maxfound == true){
+                B[maxcovers] = -1 * A[i];}
+            else break;
+        }
+        int Aindex = 0;
+        for(int i = 0; i < B.size(); i++){
+            if(B[i] > 0){
+                B[i] = A[Aindex];
+                Aindex++;
+                }
+            else B[i] *= -1;
+            }
+        
+        return B;
+    }
+};

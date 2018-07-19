@@ -1,0 +1,70 @@
+class Solution {
+public:
+    int numFactoredBinaryTrees(vector<int>& A) {
+        map<int, vector<vector<int>>> factors;
+        sort(A.begin(), A.end());
+        for(int i = 0; i < A.size(); i++){
+            for(int j = i; j < A.size(); j++){
+                if(A[i] * A[j] > A[A.size()-1]) break;
+                if(find(A.begin(), A.end(), A[i] * A[j]) != A.end())
+                    factors[A[i] * A[j]].push_back({A[i], A[j]});
+                }
+            }
+        long sum = 0;
+        for(int i = 0; i < A.size(); i++){
+            //if(factors.count(A[i]) > 0)
+                sum += runcheck(A[i],  factors);
+        }
+        return (int)(sum % (1000000007));
+    }
+    
+    long runcheck(int A, map<int, vector<vector<int>>>& factors){
+        long total = 1;
+        if(factors.count(A) > 0){
+            total = 0;
+            for(int i = 0; i < factors[A].size(); i++){
+                long sum = 0;
+            
+                if(factors[A][i][0] == factors[A][i][1]){sum = runcheck(factors[A][i][0], factors); sum *= sum;}
+                else{
+                sum = 2*runcheck(factors[A][i][0], factors)*runcheck(factors[A][i][1], factors);
+                }
+                total += sum;
+            }
+            total += 1;
+        }
+        return total;
+    }
+};
+
+
+
+
+
+class Solution {
+public:
+    int numFactoredBinaryTrees(vector<int>& A) {
+        map<long, vector<int>> factors;
+        for(int i = 0; i < A.size(); i++)
+            for(int j = 0; j < A.size(); j++)
+                if(find(A.begin(), A.end(), A[i] * A[j]) != A.end())
+                    factors[A[i] * A[j]] = {i, j};
+        int sum = A.size();
+        for(int i = 0; i < A.size(); i++){
+            if(factors.count(A[i]) > 0)
+                sum += runcheck(A[i],  factors);
+        }
+        return sum;
+    }
+    
+    int runcheck(int A, map<long, vector<int>>& factors){
+        int sum = 1;
+        if(factors.count(A) > 0){
+            if(factors[A][0] == factors[A][1]){sum = runcheck(factors[A][0], factors); sum *= sum;}
+            else{
+            sum = 2*runcheck(factors[A][0], factors)*runcheck(factors[A][1], factors);
+            }
+        }
+        return sum;
+    }
+};
