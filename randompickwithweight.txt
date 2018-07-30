@@ -1,0 +1,29 @@
+class Solution {
+public:
+    Solution(vector<int> w) {
+        for(int i = 0; i < w.size(); i++){
+            wlocal.push_back(w[i]);
+            sum += w[i];
+        }
+        std::srand(std::time(nullptr));
+    }
+    
+    int pickIndex() {
+        int val = std::rand() % (sum);
+        int i = 0;
+        while(val - wlocal[i] >= 0){
+            val = val - wlocal[i];
+            i++;
+        }
+        return i;
+    }
+    
+    int sum = 0;
+    vector<int> wlocal;
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */
