@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int lenLongestFibSubseq(vector<int>& A) {
+        map<int, int> indexes;
+        for(int i = 0; i < A.size(); i++){
+            indexes[A[i]] = i;
+            }
+        int max = 0;
+        for(int i = 0; i < A.size()-1; i++){
+            for(int j = i+1; j < A.size(); j++)
+            {
+                int count = 0;
+                int first = A[i];
+                int second = A[j];
+                int sum = A[i] + A[j];
+                while(indexes.find(sum) != indexes.end()){
+                    count++;
+                    first = second;
+                    second = sum;
+                    sum = first + second;
+                }
+                if(count > 0 && count + 2 > max) max = count + 2;
+            }
+        }
+        
+        return max;
+        
+                
+    }
+};
