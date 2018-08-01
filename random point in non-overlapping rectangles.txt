@@ -1,0 +1,40 @@
+class Solution {
+public:
+    Solution(vector<vector<int>> rects) {
+        std::srand(time(NULL));
+        for(int i = 0; i < rects.size(); i++){
+            int weight = (rects[i][2] - rects[i][0] + 1) * (rects[i][3] - rects[i][1] + 1);
+            weights.push_back(weight);
+            totalweight += weight;
+        }
+        lrects = rects;
+            
+    }
+    
+    vector<int> pick() {
+        int i = rand() % totalweight+1;
+        int index = 0;
+        int total = 0;
+        while(total < i){
+            total += weights[index];
+            index++;
+        }
+        index--;
+        int p = rand() % (weights[index]);
+        int x = lrects[index][0] + p % (lrects[index][2] - lrects[index][0] + 1);
+        int y = lrects[index][1] + p / (lrects[index][2] - lrects[index][0] + 1);
+        return {x, y};
+    }
+
+private:
+    vector<vector<int>> lrects;
+    vector<int> weights;
+    int totalweight = 0;
+    
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(rects);
+ * vector<int> param_1 = obj.pick();
+ */
