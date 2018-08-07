@@ -1,30 +1,40 @@
 class Solution {
 public:
-    int lenLongestFibSubseq(vector<int>& A) {
-        map<int, int> indexes;
-        for(int i = 0; i < A.size(); i++){
-            indexes[A[i]] = i;
-            }
-        int max = 0;
-        for(int i = 0; i < A.size()-1; i++){
-            for(int j = i+1; j < A.size(); j++)
-            {
-                int count = 0;
-                int first = A[i];
-                int second = A[j];
-                int sum = A[i] + A[j];
-                while(indexes.find(sum) != indexes.end()){
-                    count++;
-                    first = second;
-                    second = sum;
-                    sum = first + second;
-                }
-                if(count > 0 && count + 2 > max) max = count + 2;
-            }
+    int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
+        
+        if(stations.size() < 1){
+            if(startFuel - target >= 0) return 0;
+            else return -1;
         }
         
-        return max;
+        int fuel = startFuel;
+        stations.push_back({target, 0});
         
-                
+
+        
+        vector<vector<vector<int>>> remaining(stations.size());
+        for(int i = 0; i < remaining.size(); i++){
+            int newfuel = fuel - stations[i][0];
+            if(newfuel >= 0) remaining[i].push_back({1, newfuel+stations[i][1]});
+            else break;
+        }
+        for(int i = 0; i < remaining.size()-1; i++){
+            int startdistance = stations[i][0];
+            for(int j = 0; j < remaining[i].size(); j++){
+                int fuel = remaining[i][j][1];
+                int stops = remaining[i][j][0];
+                for(int k = i+1; k < remaining.size(); k++){
+                    int newfuel = fuel - stations[k][0]+ startdistance;
+                    if(newfuel >= 0) remaining[k].push_back({stops + 1, newfuel + stations[k][1]});
+                    else break;
+            }
+        }
+    }
+        if(remaining[remaining.size()-1].size() == 0) return -1;
+        int min = remaining[remaining.size()-1][0][0];
+        for(int i = 0; i < remaining[remaining.size()-1].size(); i++)
+            if(remaining[remaining.size()-1][i][0] < min)
+                min = remaining[remaining.size()-1][i][0];
+        return min-1;
     }
 };

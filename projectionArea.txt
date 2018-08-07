@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int projectionArea(vector<vector<int>>& grid) {
+        int area = 0;
+        vector<int> colmax(grid.size(), 0);
+        for(int i = 0; i < grid.size(); i++){
+            int rowmax = grid[i][0];
+            for(int j = 0; j < grid.size(); j++){
+                if(grid[i][j] != 0) area++;
+                if(grid[i][j] > rowmax ) rowmax = grid[i][j];
+                if(grid[i][j] > colmax[j]) colmax[j] = grid[i][j];
+            }
+            area += rowmax;
+        }
+        for(int i = 0; i < colmax.size(); i++) area += colmax[i];
+        return area;
+    }
+};
