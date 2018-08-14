@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string A, string B) {
+        map<string, int> hmp1;
+        map<string, int> hmp2;
+        for(int i = 0; i < A.size(); i++){
+            string word = "";
+            while(i < A.size() && A[i] != ' '){word += A[i]; i++;}
+            if(word != "") hmp1[word]++;
+        }
+        vector<string> answer;
+        for(int i = 0; i < B.size(); i++){
+            string word = "";
+            while(i < B.size() && B[i] != ' '){word += B[i]; i++;}
+            if(word != "") hmp2[word]++;
+        }
+        
+        for(int i = 0; i < A.size(); i++){
+            string word = "";
+            while(i < A.size() && A[i] != ' '){word += A[i]; i++;}
+            if(word != "" && hmp2.find(word) == hmp2.end() && hmp1[word] == 1) answer.push_back(word);
+        }
+        
+        for(int i = 0; i < B.size(); i++){
+            string word = "";
+            while(i < B.size() && B[i] != ' '){word += B[i]; i++;}
+            if(word != "" && hmp1.find(word) == hmp1.end() && hmp2[word] == 1) answer.push_back(word);
+        }
+        return answer;
+    }
+};
