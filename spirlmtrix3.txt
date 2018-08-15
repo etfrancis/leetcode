@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int R, int C, int r0, int c0) {
+        vector<vector<int>> solution;
+        int rate = 1;
+        int x = c0;
+        int y = r0;
+        solution.push_back({y, x});
+        int total = R*C;
+        while(solution.size() < total){
+            for(int i = 0; i < rate; i++){
+                x++;
+                if(x < C && y < R && x >= 0 && y >= 0) solution.push_back({y, x});
+            }
+            if(solution.size() == total) return solution;
+            for(int i = 0; i < rate; i++){
+                y++;
+                if(x < C && y < R && x >= 0 && y >= 0) solution.push_back({y, x});
+            }
+            if(solution.size() == total) return solution;
+            rate++;
+            
+            for(int i = 0; i < rate; i++){
+                x--;
+                if(x < C && y < R && x >= 0 && y >= 0) solution.push_back({y, x});
+            }
+            if(solution.size() == total) return solution;
+            for(int i = 0; i < rate; i++){
+                y--;
+                if(x < C && y < R && x >= 0 && y >= 0) solution.push_back({y, x});
+            }
+            if(solution.size() == total) return solution;
+            
+            rate++;
+        }
+        return solution;
+    }
+};
