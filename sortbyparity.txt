@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A) {
+        vector<int> B(A.size(), 0);
+        int evens = 0;
+        int odds = B.size()-1;
+        for(int i = 0; i < A.size(); i++){
+            if(A[i] % 2 == 0)
+                {B[evens] = A[i]; evens++;}
+            else
+                {B[odds] = A[i]; odds--;}
+        }
+        return B;
+    }
+};
