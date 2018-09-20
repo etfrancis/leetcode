@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* increasingBST(TreeNode* root) {
+        TreeNode* newroot = NULL;
+        TreeNode* front = NULL;
+        addtoTree(root, front, newroot);
+        return newroot;
+    }
+    void addtoTree(TreeNode* currentNode, TreeNode*& front, TreeNode*& newroot){
+        if(currentNode->left != NULL) addtoTree(currentNode->left, front, newroot);
+        currentNode->left = NULL;
+        if(newroot == NULL){
+            newroot = currentNode;
+            front = currentNode;
+            }
+        else{
+            front->right = currentNode;
+            front = front->right;
+            }
+        if(currentNode->right != NULL) addtoTree(currentNode->right, front, newroot);
+        return;
+    }
+};

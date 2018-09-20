@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isMonotonic(vector<int>& A) {
+        if(A.size() == 1) return true;
+        int index = 0;
+        while(index < A.size()-1 && A[index] == A[index+1]) index++;
+        if(index >= A.size()-1) return true;
+        int incr = 1;
+        if(A[index] < A[index+1]) incr = 1;
+        else incr = 0;
+        if(incr == 1){
+            while(index < A.size()-1){
+                if (A[index] > A[index+1]) return false;
+                else index++;
+            }
+        }
+        else{
+            while(index < A.size()-1){
+                if (A[index] < A[index+1]) return false;
+                else index++;
+            }
+        }
+        return true;
+    }
+};
