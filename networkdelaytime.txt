@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int N, int K) {
+        vector<int> visitednodes(N+1, INT_MAX);
+        vector<vector<vector<int>>> connections(N+1);
+        for(int i = 0; i < times.size(); i++)
+            connections[times[i][0]].push_back({times[i][1], times[i][2]});
+        stack<int> nodestack;
+        nodestack.push(K);
+        visitednodes[K] = 0;
+        visitednodes[0] = 0;
+        while(!nodestack.empty()){
+            int current = nodestack.top();
+            nodestack.pop();
+            for(int i = 0; i < connections[current].size(); i++){
+                if(long(visitednodes[current] + connections[current][i][1]) < long(visitednodes[connections[current][i][0]])){
+                    visitednodes[connections[current][i][0]] = visitednodes[current] + connections[current][i][1];
+                    nodestack.push(connections[current][i][0]);
+                    }
+            }
+        }
+        int maxtime = 0;
+        for(int i = 0; i < visitednodes.size(); i++){
+            if(visitednodes[i] == INT_MAX) return -1;
+            if(visitednodes[i] > maxtime) maxtime = visitednodes[i];
+        }
+        return maxtime;
+    }
+};
