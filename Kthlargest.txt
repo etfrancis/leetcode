@@ -1,0 +1,33 @@
+class KthLargest {
+public:
+    KthLargest(int k, vector<int> nums) {
+        sort(nums.begin(), nums.end());
+            for(int i = 1; i <= k && nums.size() >= i; i++)
+                heapvector.push_back(nums[nums.size()-i]);
+        this->k = k;
+    }
+    
+    int add(int val) {
+        if(heapvector.size() < k){
+            heapvector.push_back(val);
+            sort(heapvector.begin(), heapvector.end(), greater<int>());
+            return heapvector[heapvector.size()-1];
+        }
+        if(val <= heapvector[heapvector.size()-1]) return heapvector[heapvector.size()-1];
+        heapvector.pop_back();
+        int index = 0;
+        while(val < heapvector[index] && index < heapvector.size()) index++;
+        heapvector.insert(heapvector.begin()+index, val);
+        return heapvector[heapvector.size()-1];
+    }
+    
+    private:
+    vector<int> heapvector;
+    int k;
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
