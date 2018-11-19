@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string shortestCompletingWord(string licensePlate, vector<string>& words) {
+        vector<int> plateletters(130, 0);
+        for(int i = 0; i < licensePlate.size(); i++){
+            licensePlate[i] = tolower(licensePlate[i]);
+            if(licensePlate[i] >= 'a' && licensePlate[i] <= 'z')
+                plateletters[licensePlate[i]]++;
+        }
+        
+        vector<string> completewords;
+        
+        for(int i = 0; i < words.size(); i++){
+            vector<int> plateletterscopy = plateletters;
+            for(int j = 0; j < words[i].size(); j++)
+                plateletterscopy[words[i][j]]--;
+            int covered = 1;
+            for(int j = 0; j < plateletterscopy.size(); j++)
+                if(plateletterscopy[j] > 0) covered = 0;
+            if(covered == 1) completewords.push_back(words[i]);
+        }
+        int minsize = completewords[0].size();
+        string minsizeword = completewords[0];
+        for(int i = 0; i < completewords.size(); i++){
+            if(completewords[i].size() < minsize){
+                minsize = completewords[i].size();
+                minsizeword = completewords[i];
+            }
+        }
+        return minsizeword;
+    }
+};
